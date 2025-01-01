@@ -10,7 +10,14 @@ function createPlayer(name, symbol) {
   const increaseScore = () => score++;
   const resetScore = () => (score = 0);
 
-  return { name, getSymbol, toggleSymbol, changeName, increaseScore, resetScore };
+  return {
+    name,
+    getSymbol,
+    toggleSymbol,
+    changeName,
+    increaseScore,
+    resetScore,
+  };
 }
 
 const gameBoard = (function () {
@@ -41,7 +48,11 @@ const gameBoard = (function () {
     for (let positions of winningPositions) {
       const [idx1, idx2, idx3] = positions;
 
-      if ((gameBoardList[idx1] !== undefined) && (gameBoardList[idx1] === gameBoardList[idx2]) && (gameBoardList[idx2] === gameBoardList[idx3])) {
+      if (
+        gameBoardList[idx1] !== undefined &&
+        gameBoardList[idx1] === gameBoardList[idx2] &&
+        gameBoardList[idx2] === gameBoardList[idx3]
+      ) {
         return [gameBoardList[idx1], [idx1, idx2, idx3]];
       }
     }
@@ -67,21 +78,22 @@ const displayController = (function () {
 
   const toggleCurrentPlayer = () => {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
-  }
+  };
 
   const checkGameStatus = () => {
     const gameStatus = gameBoard.checkPlayerWon();
 
-    if(gameStatus === null) return undefined;
+    if (gameStatus === null) return undefined;
     return gameStatus[0];
-  }
+  };
 
   const playMove = (idx) => {
-    if(gameEnded) return;
-    const currentPlayerSymbol = currentPlayer === 1 ? player1.getSymbol() : player2.getSymbol();
+    if (gameEnded) return;
+    const currentPlayerSymbol =
+      currentPlayer === 1 ? player1.getSymbol() : player2.getSymbol();
     gameBoard.playMove(currentPlayerSymbol, idx);
     toggleCurrentPlayer();
-  }
+  };
 
   return { resetGame, playMove, checkGameStatus };
 })();
