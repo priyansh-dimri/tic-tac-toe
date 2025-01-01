@@ -68,12 +68,16 @@ const displayController = (function () {
     player2 = createPlayer("Player 2", 2);
 
   let currentPlayer = 1,
-    gameEnded = false;
+    gameEnded = false,
+    indicesFilled = 0;
 
   const resetGame = () => {
     player1.resetScore();
     player2.resetScore();
     clearBoard();
+    indicesFilled = 0;
+    gameEnded = false;
+    currentPlayer = 1;
   };
 
   const toggleCurrentPlayer = () => {
@@ -91,7 +95,11 @@ const displayController = (function () {
     if (gameEnded) return;
     const currentPlayerSymbol =
       currentPlayer === 1 ? player1.getSymbol() : player2.getSymbol();
-    gameBoard.playMove(currentPlayerSymbol, idx);
+    if (!gameBoard.playMove(currentPlayerSymbol, idx)){
+        return;
+    }
+    indicesFilled++;
+    if(indicesFilled === 9) gameEnded = true;
     toggleCurrentPlayer();
   };
 
