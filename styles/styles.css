@@ -1,0 +1,9 @@
+@font-face {
+  font-family: heading-font;
+  src: url(../fonts/Tektur/Tektur-VariableFont_wdth\wght.ttf);
+}
+
+@font-face {
+  font-family: content-font;
+  src: url(../fonts/Newsreader/Newsreader-VariableFont_opsz\wght.ttf);
+}
