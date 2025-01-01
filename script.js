@@ -14,7 +14,7 @@ function createPlayer(name, symbol) {
 }
 
 const gameBoard = (function () {
-  let gameBoardList = new Array(9);
+  let gameBoardList = new Array(9).fill(undefined);
 
   const winningPositions = [
     [0, 1, 2],
@@ -38,19 +38,15 @@ const gameBoard = (function () {
   const clearBoard = () => gameBoardList.fill(undefined);
 
   const checkPlayerWon = () => {
-    for (let positions in winningPositions) {
+    for (let positions of winningPositions) {
       const [idx1, idx2, idx3] = positions;
 
-      if (
-        ((gameBoardList[idx1] === gameBoardList[idx2]) ===
-          gameBoardList[idx3]) !==
-        undefined
-      ) {
-        return gameBoardList[idx1];
+      if ((gameBoardList[idx1] !== undefined) && (gameBoardList[idx1] === gameBoardList[idx2]) && (gameBoardList[idx2] === gameBoardList[idx3])) {
+        return [gameBoardList[idx1], [idx1, idx2, idx3]];
       }
     }
 
-    return "";
+    return null;
   };
 
   return { playMove, clearBoard, checkPlayerWon };
@@ -73,12 +69,19 @@ const displayController = (function () {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
   }
 
+  const checkGameStatus = () => {
+    const gameStatus = gameBoard.checkPlayerWon();
+
+    if(gameStatus === null) return undefined;
+    return gameStatus[0];
+  }
+
   const playMove = (idx) => {
     if(gameEnded) return;
-    const currentPlayerSymbol = currentPlayer === 1 ? player1.getSymbol : player2.getSymbol;
+    const currentPlayerSymbol = currentPlayer === 1 ? player1.getSymbol() : player2.getSymbol();
     gameBoard.playMove(currentPlayerSymbol, idx);
     toggleCurrentPlayer();
   }
 
-  return { resetGame, playMove };
+  return { resetGame, playMove, checkGameStatus };
 })();
