@@ -77,7 +77,7 @@ const displayController = (function () {
     if(gameEnded) return;
     const currentPlayerSymbol = currentPlayer === 1 ? player1.getSymbol : player2.getSymbol;
     gameBoard.playMove(currentPlayerSymbol, idx);
-    toggleCurrentPlayer;
+    toggleCurrentPlayer();
   }
 
   return { resetGame, playMove };
