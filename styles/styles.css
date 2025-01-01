@@ -7,3 +7,10 @@
   font-family: content-font;
   src: url(../fonts/Newsreader/Newsreader-VariableFont_opsz\wght.ttf);
 }
+
+.container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+  grid-template-rows: 1fr 3fr 1fr;
+}
