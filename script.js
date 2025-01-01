@@ -1,7 +1,10 @@
-function createPlayer(name) {
+function createPlayer(name, symbol) {
   let score = 0;
 
   const changeName = (newName) => (name = newName);
+  const toggleSymbol = () => {
+    symbol = symbol === 1 ? 2 : 1;
+  };
 
   const increaseScore = () => score++;
   const resetScore = () => (score = 0);
@@ -48,4 +51,19 @@ const gameBoard = (function () {
   };
 
   return { playMove, clearBoard, checkPlayerWon };
+})();
+
+const displayController = (function () {
+  const player1 = createPlayer("Player 1", 1),
+    player2 = createPlayer("Player 2", 2);
+
+  let currentPlayer = 1;
+
+  const resetGame = () => {
+    player1.resetScore();
+    player2.resetScore();
+    clearBoard();
+  };
+
+  return { resetGame };
 })();
