@@ -2,6 +2,7 @@ function createPlayer(name, symbol) {
   let score = 0;
 
   const changeName = (newName) => (name = newName);
+  const getSymbol = () => symbol;
   const toggleSymbol = () => {
     symbol = symbol === 1 ? 2 : 1;
   };
@@ -9,7 +10,7 @@ function createPlayer(name, symbol) {
   const increaseScore = () => score++;
   const resetScore = () => (score = 0);
 
-  return { name, changeName, increaseScore, resetScore };
+  return { name, getSymbol, toggleSymbol, changeName, increaseScore, resetScore };
 }
 
 const gameBoard = (function () {
@@ -29,7 +30,9 @@ const gameBoard = (function () {
   const playMove = (symbol, idx) => {
     if (!gameBoardList[idx]) {
       gameBoardList[idx] = symbol;
+      return true;
     }
+    return false;
   };
 
   const clearBoard = () => gameBoardList.fill(undefined);
@@ -57,7 +60,8 @@ const displayController = (function () {
   const player1 = createPlayer("Player 1", 1),
     player2 = createPlayer("Player 2", 2);
 
-  let currentPlayer = 1;
+  let currentPlayer = 1,
+    gameEnded = false;
 
   const resetGame = () => {
     player1.resetScore();
@@ -65,5 +69,16 @@ const displayController = (function () {
     clearBoard();
   };
 
-  return { resetGame };
+  const toggleCurrentPlayer = () => {
+    currentPlayer = currentPlayer === 1 ? 2 : 1;
+  }
+
+  const playMove = (idx) => {
+    if(gameEnded) return;
+    const currentPlayerSymbol = currentPlayer === 1 ? player1.getSymbol : player2.getSymbol;
+    gameBoard.playMove(currentPlayerSymbol, idx);
+    toggleCurrentPlayer;
+  }
+
+  return { resetGame, playMove };
 })();
