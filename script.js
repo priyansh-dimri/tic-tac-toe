@@ -95,11 +95,9 @@ const displayController = (function () {
     if (gameEnded) return;
     const currentPlayerSymbol =
       currentPlayer === 1 ? player1.getSymbol() : player2.getSymbol();
-    if (!gameBoard.playMove(currentPlayerSymbol, idx)){
-        return;
-    }
+    if (!gameBoard.playMove(currentPlayerSymbol, idx)) return;
     indicesFilled++;
-    if(indicesFilled === 9) gameEnded = true;
+    if (indicesFilled === 9) gameEnded = true;
     toggleCurrentPlayer();
   };
 
