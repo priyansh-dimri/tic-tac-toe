@@ -2,6 +2,9 @@ const gameBoardSubContainer = document.getElementById(
   "game-board-sub-container"
 );
 
+const player1TurnDetail = document.getElementById('turn-detail-1'),
+  player2TurnDetail = document.getElementById('turn-detail-2');
+
 function createPlayer(name, symbol) {
   let score = 0;
 
@@ -91,6 +94,14 @@ const displayController = (function () {
 
   const toggleCurrentPlayer = () => {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
+    if(currentPlayer === 1) {
+      player1TurnDetail.textContent = 'Your Turn';
+      player2TurnDetail.textContent = 'Wait For Your Turn';
+    }
+    else {
+      player1TurnDetail.textContent = 'Wait For Your Turn';
+      player2TurnDetail.textContent = 'Your Turn';
+    }
   };
 
   const checkGameStatus = () => {
@@ -105,7 +116,6 @@ const displayController = (function () {
     const currentPlayerSymbol =
       currentPlayer === 1 ? player1.getSymbol() : player2.getSymbol();
     if (!gameBoard.playMove(currentPlayerSymbol, idx)) return;
-    console.log("HERE");
     indicesFilled++;
     if (indicesFilled === 9) gameEnded = true;
     toggleCurrentPlayer();
