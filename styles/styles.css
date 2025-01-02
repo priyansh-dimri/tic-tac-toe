@@ -17,7 +17,7 @@
 
   --container-border: 3px solid var(--dark-background-color);
 
-  --symbol-size: 50px;
+  --symbol-size: 4rem;
 }
 
 body {
@@ -142,6 +142,9 @@ body {
   border-radius: 10px;
   background-color: var(--light-background-color);
   box-shadow: rgba(74, 20, 20, 0.853) 0px 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-board-button:active {
