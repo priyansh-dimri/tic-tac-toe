@@ -16,7 +16,8 @@
   --dark-font-color: #450a0a;
   --light-font-color: #fee2e2;
 
-  --container-border: 3px solid var(--dark-background-color);
+  --dark-border: 3px solid var(--dark-background-color);
+  --light-border: 3px solid var(--light-background-color);
 
   --symbol-size: 4rem;
 }
@@ -55,7 +56,7 @@ body {
 }
 
 .player-sub-container {
-  border: var(--container-border);
+  border: var(--dark-border);
   border-radius: 10px;
   display: grid;
   grid-template-rows: 1fr 2fr 3fr;
@@ -84,7 +85,7 @@ body {
 
 .turn-detail-container {
   margin: 1rem;
-  border: var(--container-border);
+  border: var(--dark-border);
   border-radius: 10px;
   font-size: 1.2rem;
   display: grid;
@@ -127,7 +128,7 @@ body {
 }
 
 .game-board-sub-container {
-  border: var(--container-border);
+  border: var(--dark-border);
   border-radius: 10px;
   background-color: var(--dark-background-color);
 
@@ -164,4 +165,38 @@ body {
 .result-container {
   grid-column: 1 / -1;
   background-color: var(--dark-background-color);
+
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.result-button {
+  margin: 1rem;
+  border-radius: 10px;
+  border: var(--light-border);
+  background-color: var(--dark-background-color);
+  color: var(--light-font-color);
+  font-family: heading-font;
+  font-size: 1.5rem;
+}
+
+.result-button:active {
+  background-color: #560b0b;
+}
+
+#reset-game-button {
+  margin-right: 0;
+}
+
+#swap-symbols-button {
+  margin-left: 0;
+}
+
+#result {
+  font-family: heading-font;
+  font-size: 1.2rem;
+  color: var(--light-font-color);
+  text-align: center;
 }
