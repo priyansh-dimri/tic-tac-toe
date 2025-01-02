@@ -41,6 +41,11 @@ const gameBoard = (function () {
   const playMove = (symbol, idx) => {
     if (!gameBoardList[idx]) {
       gameBoardList[idx] = symbol;
+      const clickedButton = document.getElementById(`game-board-button-${idx}`);
+      const buttonSymbolImage = document.createElement('img');
+      buttonSymbolImage.className = 'symbol-image'
+      buttonSymbolImage.src = symbol === 1 ? './assets/circle.svg' : './assets/cross.svg';
+      clickedButton.replaceChildren(buttonSymbolImage);
       return true;
     }
     return false;
@@ -100,6 +105,7 @@ const displayController = (function () {
     const currentPlayerSymbol =
       currentPlayer === 1 ? player1.getSymbol() : player2.getSymbol();
     if (!gameBoard.playMove(currentPlayerSymbol, idx)) return;
+    console.log("HERE");
     indicesFilled++;
     if (indicesFilled === 9) gameEnded = true;
     toggleCurrentPlayer();
@@ -108,9 +114,11 @@ const displayController = (function () {
   const createGridButton = (idx) => {
     const gridButton = document.createElement('button');
     gridButton.className = 'game-board-button';
+    gridButton.id = `game-board-button-${idx}`;
     gridButton.value = idx;
 
     gridButton.addEventListener('click', (e) => {
+      console.log(e.target.value);
       playMove(e.target.value);
     });
 

@@ -16,6 +16,8 @@
   --light-font-color: #fee2e2;
 
   --container-border: 3px solid var(--dark-background-color);
+
+  --symbol-size: 50px;
 }
 
 body {
@@ -144,6 +146,10 @@ body {
 
 .game-board-button:active {
   box-shadow: rgba(74, 20, 20, 0.853) 0px 5px 10px;
+}
+
+.symbol-image {
+  height: var(--symbol-size);
 }
 
 /* Result Container styling */
