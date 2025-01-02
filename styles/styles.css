@@ -69,6 +69,19 @@ body {
 .game-board-container {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
+
+  display: grid;
+}
+
+.game-board-sub-container {
+  border: var(--container-border);
+  border-radius: 10px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
 }
 
 /* Result Container styling */
