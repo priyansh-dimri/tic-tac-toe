@@ -5,6 +5,11 @@ const gameBoardSubContainer = document.getElementById(
 const player1TurnDetail = document.getElementById('turn-detail-1'),
   player2TurnDetail = document.getElementById('turn-detail-2');
 
+const player1Wins = document.getElementById('wins-1'),
+  player1Lost = document.getElementById('lost-1'),
+  player2Wins = document.getElementById('wins-2'),
+  player2Lost = document.getElementById('lost-2');
+
 function createPlayer(name, symbol) {
   let score = 0;
 
@@ -15,6 +20,7 @@ function createPlayer(name, symbol) {
   };
 
   const increaseScore = () => score++;
+  const getScore = () => score;
   const resetScore = () => (score = 0);
 
   return {
@@ -23,6 +29,7 @@ function createPlayer(name, symbol) {
     toggleSymbol,
     changeName,
     increaseScore,
+    getScore,
     resetScore,
   };
 }
