@@ -126,6 +126,7 @@ body {
 .game-board-sub-container {
   border: var(--container-border);
   border-radius: 10px;
+  background-color: var(--dark-background-color);
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -135,9 +136,14 @@ body {
 }
 
 .game-board-button {
-  border: var(--container-border);
+  border: none;
   border-radius: 10px;
   background-color: var(--light-background-color);
+  box-shadow: rgba(74, 20, 20, 0.853) 0px 10px 10px;
+}
+
+.game-board-button:active {
+  box-shadow: rgba(74, 20, 20, 0.853) 0px 5px 10px;
 }
 
 /* Result Container styling */
