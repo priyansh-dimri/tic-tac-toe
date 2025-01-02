@@ -1,3 +1,7 @@
+const gameBoardSubContainer = document.getElementById(
+  "game-board-sub-container"
+);
+
 function createPlayer(name, symbol) {
   let score = 0;
 
@@ -101,5 +105,28 @@ const displayController = (function () {
     toggleCurrentPlayer();
   };
 
-  return { resetGame, playMove, checkGameStatus };
+  const createGridButton = (idx) => {
+    const gridButton = document.createElement('button');
+    gridButton.className = 'game-board-button';
+    gridButton.value = idx;
+
+    gridButton.addEventListener('click', (e) => {
+      playMove(e.target.value);
+    });
+
+    return gridButton;
+  }
+
+  const createEmptyGrid = () => {
+    const gridButtons = [];
+    for(let i = 0; i < 9; i++) {
+      gridButtons.push(createGridButton(i));
+    }
+
+    gameBoardSubContainer.replaceChildren(...gridButtons);
+  }
+
+  return { resetGame, playMove, checkGameStatus, createEmptyGrid };
 })();
+
+displayController.createEmptyGrid();

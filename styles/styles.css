@@ -134,6 +134,12 @@ body {
   padding: 1rem;
 }
 
+.game-board-button {
+  border: var(--container-border);
+  border-radius: 10px;
+  background-color: var(--light-background-color);
+}
+
 /* Result Container styling */
 .result-container {
   grid-column: 1 / -1;
