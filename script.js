@@ -61,6 +61,13 @@ const gameBoard = (function () {
 
   const clearBoard = () => gameBoardList.fill(undefined);
 
+  const addWinnerClassToButton = (indices) => {
+    for(let idx of indices) {
+      const winnerGridButton = document.getElementById(`game-board-button-${idx}`);
+      winnerGridButton.classList.add('game-board-winner-button');
+    }
+  }
+
   const checkPlayerWon = () => {
     for (let positions of winningPositions) {
       const [idx1, idx2, idx3] = positions;
@@ -70,6 +77,7 @@ const gameBoard = (function () {
         gameBoardList[idx1] === gameBoardList[idx2] &&
         gameBoardList[idx2] === gameBoardList[idx3]
       ) {
+        addWinnerClassToButton(positions);
         return [gameBoardList[idx1], [idx1, idx2, idx3]];
       }
     }

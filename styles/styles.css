@@ -11,6 +11,7 @@
 :root {
   --dark-background-color: #7f1d1d;
   --light-background-color: #fef2f2;
+  --winner-background-color: #fca5a5;
 
   --dark-font-color: #450a0a;
   --light-font-color: #fee2e2;
@@ -149,6 +150,10 @@ body {
 
 .game-board-button:active {
   box-shadow: rgba(74, 20, 20, 0.853) 0px 5px 10px;
+}
+
+.game-board-winner-button {
+  background-color: var(--winner-background-color);
 }
 
 .symbol-image {
