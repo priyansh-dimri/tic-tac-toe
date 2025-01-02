@@ -92,6 +92,15 @@ body {
   color: var(--dark-font-color);
 }
 
+.game-stats-title {
+  background-color: var(--dark-background-color);
+  padding: 1rem;
+  text-align: center;
+  font-family: heading-font;
+  color: var(--light-font-color);
+  font-weight: bold;
+}
+
 /* Game Board Container styling */
 .game-board-container {
   grid-row: 2 / 3;
