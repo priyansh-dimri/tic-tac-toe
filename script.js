@@ -6,9 +6,7 @@ const player1TurnDetail = document.getElementById('turn-detail-1'),
   player2TurnDetail = document.getElementById('turn-detail-2');
 
 const player1Wins = document.getElementById('wins-1'),
-  player1Lost = document.getElementById('lost-1'),
-  player2Wins = document.getElementById('wins-2'),
-  player2Lost = document.getElementById('lost-2');
+  player2Wins = document.getElementById('wins-2');
 
 function createPlayer(name, symbol) {
   let score = 0;
@@ -119,10 +117,10 @@ const displayController = (function () {
   };
 
   const playMove = (idx) => {
-    if (gameEnded) return;
+    if (gameEnded) return false;
     const currentPlayerSymbol =
       currentPlayer === 1 ? player1.getSymbol() : player2.getSymbol();
-    if (!gameBoard.playMove(currentPlayerSymbol, idx)) return;
+    if (!gameBoard.playMove(currentPlayerSymbol, idx)) return false;
     indicesFilled++;
     if (indicesFilled === 9) gameEnded = true;
     toggleCurrentPlayer();
@@ -135,8 +133,24 @@ const displayController = (function () {
     gridButton.value = idx;
 
     gridButton.addEventListener('click', (e) => {
-      console.log(e.target.value);
-      playMove(e.target.value);
+      let value = e.target.value;
+      if(!e.target.value) {
+        value = e.target.parentNode.value;
+      }
+      playMove(value);
+
+      const winner = checkGameStatus();
+      if(!winner) return;
+      if(winner === 1) {
+        player1.increaseScore();
+        player1Wins.textContent = player1.getScore();
+      }
+      else if(winner === 2) {
+        player2.increaseScore();
+        player2Wins.textContent = player2.getScore();
+      }
+
+      gameEnded = true;
     });
 
     return gridButton;
@@ -151,7 +165,7 @@ const displayController = (function () {
     gameBoardSubContainer.replaceChildren(...gridButtons);
   }
 
-  return { resetGame, playMove, checkGameStatus, createEmptyGrid };
+  return { resetGame, playMove, createEmptyGrid };
 })();
 
 displayController.createEmptyGrid();
