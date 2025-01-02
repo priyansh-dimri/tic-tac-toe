@@ -124,6 +124,7 @@ const displayController = (function () {
     indicesFilled++;
     if (indicesFilled === 9) gameEnded = true;
     toggleCurrentPlayer();
+    return true;
   };
 
   const createGridButton = (idx) => {
@@ -137,7 +138,7 @@ const displayController = (function () {
       if(!e.target.value) {
         value = e.target.parentNode.value;
       }
-      playMove(value);
+      if(!playMove(value)) return;
 
       const winner = checkGameStatus();
       if(!winner) return;
