@@ -8,7 +8,7 @@ const player1TurnDetail = document.getElementById('turn-detail-1'),
 const player1Wins = document.getElementById('wins-1'),
   player2Wins = document.getElementById('wins-2');
 
-function createPlayer(name, symbol) {
+function createPlayer(name, symbol, value) {
   let score = 0;
 
   const changeName = (newName) => (name = newName);
@@ -16,6 +16,7 @@ function createPlayer(name, symbol) {
   const toggleSymbol = () => {
     symbol = symbol === 1 ? 2 : 1;
   };
+  const getValue = () => value;
 
   const increaseScore = () => score++;
   const getScore = () => score;
@@ -29,6 +30,7 @@ function createPlayer(name, symbol) {
     increaseScore,
     getScore,
     resetScore,
+    getValue,
   };
 }
 
@@ -46,9 +48,9 @@ const gameBoard = (function () {
     [6, 7, 8],
   ];
 
-  const playMove = (symbol, idx) => {
+  const playMove = (symbol, idx, value) => {
     if (!gameBoardList[idx]) {
-      gameBoardList[idx] = symbol;
+      gameBoardList[idx] = value;
       const clickedButton = document.getElementById(`game-board-button-${idx}`);
       const buttonSymbolImage = document.createElement('img');
       buttonSymbolImage.className = 'symbol-image'
@@ -89,10 +91,11 @@ const gameBoard = (function () {
 })();
 
 const displayController = (function () {
-  const player1 = createPlayer("Player 1", 1),
-    player2 = createPlayer("Player 2", 2);
+  const player1 = createPlayer("Player 1", 1, 1),
+    player2 = createPlayer("Player 2", 2, 2);
 
-  let currentPlayer = 1,
+  let startingPlayer = 1,
+    currentPlayer = 1,
     gameEnded = false,
     indicesFilled = 0;
 
@@ -100,7 +103,7 @@ const displayController = (function () {
     gameBoard.clearBoard();
     createEmptyGrid();
 
-    if(currentPlayer === 2) toggleCurrentPlayer();
+    if(currentPlayer !== startingPlayer) toggleCurrentPlayer();
     gameEnded = false;
   }
 
@@ -127,7 +130,8 @@ const displayController = (function () {
     if (gameEnded) return false;
     const currentPlayerSymbol =
       currentPlayer === 1 ? player1.getSymbol() : player2.getSymbol();
-    if (!gameBoard.playMove(currentPlayerSymbol, idx)) return false;
+    const currentPlayerValue = currentPlayer === 1 ? player1.getValue() : player2.getValue();
+    if (!gameBoard.playMove(currentPlayerSymbol, idx, currentPlayerValue)) return false;
     indicesFilled++;
     if (indicesFilled === 9) gameEnded = true;
     toggleCurrentPlayer();
@@ -173,7 +177,17 @@ const displayController = (function () {
     gameBoardSubContainer.replaceChildren(...gridButtons);
   }
 
-  return { clearBoard, playMove, createEmptyGrid };
+  const toggleSymbols = () => {
+    player1.toggleSymbol();
+    player2.toggleSymbol();
+
+    startingPlayer = startingPlayer === 1 ? 2 : 1;
+    toggleCurrentPlayer();
+
+    clearBoard();
+  }
+
+  return { clearBoard, playMove, createEmptyGrid, toggleSymbols };
 })();
 
 displayController.createEmptyGrid();
@@ -181,4 +195,9 @@ displayController.createEmptyGrid();
 const clearButton = document.getElementById("clear-board-button");
 clearButton.addEventListener('click', ()=>{
   displayController.clearBoard();
+})
+
+const swapButton = document.getElementById("swap-symbols-button");
+swapButton.addEventListener('click', ()=>{
+  displayController.toggleSymbols();
 })
