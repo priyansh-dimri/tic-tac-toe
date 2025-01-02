@@ -96,14 +96,13 @@ const displayController = (function () {
     gameEnded = false,
     indicesFilled = 0;
 
-  const resetGame = () => {
-    player1.resetScore();
-    player2.resetScore();
-    clearBoard();
-    indicesFilled = 0;
+  const clearBoard = () => {
+    gameBoard.clearBoard();
+    createEmptyGrid();
+
+    if(currentPlayer === 2) toggleCurrentPlayer();
     gameEnded = false;
-    currentPlayer = 1;
-  };
+  }
 
   const toggleCurrentPlayer = () => {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
@@ -174,7 +173,12 @@ const displayController = (function () {
     gameBoardSubContainer.replaceChildren(...gridButtons);
   }
 
-  return { resetGame, playMove, createEmptyGrid };
+  return { clearBoard, playMove, createEmptyGrid };
 })();
 
 displayController.createEmptyGrid();
+
+const clearButton = document.getElementById("clear-board-button");
+clearButton.addEventListener('click', ()=>{
+  displayController.clearBoard();
+})
