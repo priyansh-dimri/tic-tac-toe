@@ -55,7 +55,7 @@ body {
   border: var(--container-border);
   border-radius: 10px;
   display: grid;
-  grid-template-rows: 1fr 1fr 3fr;
+  grid-template-rows: 1fr 2fr 3fr;
 }
 
 .player-sub-container-1 {
@@ -76,6 +76,20 @@ body {
 .player-name {
   font-family: heading-font;
   color: var(--light-font-color);
+  font-size: 1.5rem;
+}
+
+.turn-detail-container {
+  margin: 1rem;
+  border: var(--container-border);
+  border-radius: 10px;
+  font-size: 1.2rem;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-family: heading-font;
+  color: var(--dark-font-color);
 }
 
 /* Game Board Container styling */
