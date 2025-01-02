@@ -1,16 +1,19 @@
 @font-face {
   font-family: heading-font;
-  src: url(../fonts/Tektur/Tektur-VariableFont_wdth\wght.ttf);
+  src: url(./../fonts/Tektur/Tektur-Variable.ttf);
 }
 
 @font-face {
   font-family: content-font;
-  src: url(../fonts/Newsreader/Newsreader-VariableFont_opsz\wght.ttf);
+  src: url(../fonts/Newsreader/Newsreader-Variable.ttf);
 }
 
 :root {
   --dark-background-color: #7f1d1d;
   --light-background-color: #fef2f2;
+
+  --dark-font-color: #450a0a;
+  --light-font-color: #fee2e2;
 }
 
 body {
@@ -28,6 +31,15 @@ body {
 /* Title styling */
 .title {
   grid-column: 1 / -1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: heading-font;
+  font-size: 2rem;
+  color: var(--light-font-color);
+
   background-color: var(--dark-background-color);
 }
 
