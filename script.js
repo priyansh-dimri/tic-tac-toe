@@ -169,6 +169,7 @@ const displayController = (function () {
       if(!playMove(value)) return;
 
       const winner = checkGameStatus();
+      if(gameEnded) updateResult(); // Tie Condition
       if(!winner) return;
 
       winnerPlayer = winner;
