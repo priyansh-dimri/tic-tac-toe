@@ -8,6 +8,8 @@ const player1TurnDetail = document.getElementById('turn-detail-1'),
 const player1Wins = document.getElementById('wins-1'),
   player2Wins = document.getElementById('wins-2');
 
+const result = document.getElementById('result');
+
 function createPlayer(name, symbol, value) {
   let score = 0;
 
@@ -96,6 +98,7 @@ const displayController = (function () {
 
   let startingPlayer = 1,
     currentPlayer = 1,
+    winnerPlayer = 3,
     gameEnded = false,
     indicesFilled = 0;
 
@@ -105,7 +108,12 @@ const displayController = (function () {
 
     if(currentPlayer !== startingPlayer) toggleCurrentPlayer();
     gameEnded = false;
+    indicesFilled = 0;
+    winnerPlayer = 3;
+    clearResult();
   }
+
+  const clearResult = () => result.textContent = '';
 
   const toggleCurrentPlayer = () => {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
@@ -125,6 +133,15 @@ const displayController = (function () {
     if (gameStatus === null) return undefined;
     return gameStatus[0];
   };
+
+  const updateResult = () => {
+    if(gameEnded) {
+      if(winnerPlayer === 3) {
+        result.textContent = 'It\'s a Tie!';
+      }
+      else result.textContent = `Player ${winnerPlayer} Wins!`;      
+    }
+  }
 
   const playMove = (idx) => {
     if (gameEnded) return false;
@@ -153,6 +170,8 @@ const displayController = (function () {
 
       const winner = checkGameStatus();
       if(!winner) return;
+
+      winnerPlayer = winner;
       if(winner === 1) {
         player1.increaseScore();
         player1Wins.textContent = player1.getScore();
@@ -163,6 +182,7 @@ const displayController = (function () {
       }
 
       gameEnded = true;
+      updateResult();
     });
 
     return gridButton;
@@ -185,6 +205,7 @@ const displayController = (function () {
     toggleCurrentPlayer();
 
     clearBoard();
+    clearResult();
   }
 
   return { clearBoard, playMove, createEmptyGrid, toggleSymbols };
