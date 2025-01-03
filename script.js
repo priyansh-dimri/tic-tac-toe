@@ -139,7 +139,7 @@ const displayController = (function () {
       if(winnerPlayer === 3) {
         result.textContent = 'It\'s a Tie!';
       }
-      else result.textContent = `Player ${winnerPlayer} Wins!`;      
+      else result.textContent = `Player ${winnerPlayer} Wins! 🏆`;      
     }
   }
 
